@@ -48,7 +48,10 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-  const socket = io(`http://${window.location.hostname}:5000`);
+  const socket = io(import.meta.env.VITE_API_URL,{
+    withCredentials: true,
+    transports: ["websocket", "polling"],
+  });
 
   socket.on("scan_update", (data: { id: number; scan_count: number }) => {
     setQrCodes(prev =>
